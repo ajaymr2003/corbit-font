@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Corbit Mono — Futuristic Developer Font</title>
+  <style>
+    @font-face {
+      font-family: 'Corbit Mono';
+      src: url('dist/CorbitMono.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111111;
+      --border: #1e1e1e;
+      --accent: #00ff88;
+      --accent-dim: #00cc6a;
+      --text: #e0e0e0;
+      --text-muted: #666;
+      --font-mono: 'Corbit Mono', 'Courier New', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-mono);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-size: 1.1rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+    }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 85vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(0,255,136,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-tag {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      border: 1px solid var(--accent);
+      border-radius: 2px;
+      color: var(--accent);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+    .hero-title {
+      font-size: clamp(3rem, 10vw, 8rem);
+      font-family: var(--font-mono);
+      letter-spacing: -0.02em;
+      line-height: 1;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+    .hero-title span { color: var(--accent); }
+    .hero-sub {
+      font-size: clamp(0.85rem, 2vw, 1.1rem);
+      color: var(--text-muted);
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+      letter-spacing: 0.03em;
+    }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.7rem 1.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      border-radius: 3px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+      border: 1px solid var(--accent);
+    }
+    .btn-primary:hover { background: var(--accent-dim); border-color: var(--accent-dim); }
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── Section ── */
+    section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    h2 {
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      color: #fff;
+      margin-bottom: 2rem;
+    }
+
+    /* ── Preview ── */
+    .preview-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    .preview-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .preview-text {
+      font-family: var(--font-mono);
+      font-size: clamp(1.2rem, 4vw, 2rem);
+      color: var(--text);
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    /* ── Interactive ── */
+    .input-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 2rem;
+      transition: border-color 0.2s;
+    }
+    .input-wrap:focus-within { border-color: var(--accent); }
+    .input-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.5rem 1rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+    }
+    .input-header span {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+    }
+    #font-size-ctrl {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 0.2rem 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      border-radius: 2px;
+      cursor: pointer;
+    }
+    #live-input {
+      width: 100%;
+      padding: 1.5rem;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: var(--font-mono);
+      font-size: 1.5rem;
+      color: var(--accent);
+      caret-color: var(--accent);
+      resize: none;
+    }
+
+    /* ── Char grid ── */
+    .chars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .char-cell {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 0.3rem;
+      padding: 0.75rem 0.5rem;
+      background: var(--surface);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .char-cell:hover { background: #181818; }
+    .char-cell svg {
+      width: 36px; height: 36px;
+      color: var(--accent);
+    }
+    .char-label {
+      font-size: 0.55rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Code samples ── */
+    .code-sample {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+    .code-bar {
+      padding: 0.5rem 1rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      background: rgba(255,255,255,0.02);
+      display: flex; gap: 0.4rem; align-items: center;
+    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot-r { background: #ff5f56; }
+    .dot-y { background: #ffbd2e; }
+    .dot-g { background: #27c93f; }
+    pre {
+      padding: 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--text);
+      overflow-x: auto;
+    }
+    .kw { color: #569cd6; }
+    .fn { color: #dcdcaa; }
+    .str { color: #ce9178; }
+    .cm { color: #6a9955; }
+    .num { color: #b5cea8; }
+    .acc { color: var(--accent); }
+
+    /* ── Features ── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+    .feature-card:hover { border-color: var(--accent); }
+    .feature-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .feature-card h3 {
+      font-size: 0.9rem;
+      color: #fff;
+      margin-bottom: 0.4rem;
+      letter-spacing: 0.05em;
+    }
+    .feature-card p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ── Download ── */
+    .download-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .download-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2rem;
+      display: flex; flex-direction: column; gap: 1rem;
+      transition: border-color 0.2s;
+    }
+    .download-card:hover { border-color: var(--accent); }
+    .dl-ext {
+      font-size: 2rem;
+      letter-spacing: -0.02em;
+      color: var(--accent);
+    }
+    .dl-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #333; }
+  </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+  <span class="nav-logo">CORBIT MONO</span>
+  <ul class="nav-links">
+    <li><a href="#preview">Preview</a></li>
+    <li><a href="#glyphs">Glyphs</a></li>
+    <li><a href="#code">Code</a></li>
+    <li><a href="#download">Download</a></li>
+    <li><a href="https://github.com/CorbitTechnologies/corbiit-font" target="_blank">GitHub</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-tag">Open Source · OFL-1.1</div>
+  <h1 class="hero-title">Corbit<span> Mono</span></h1>
+  <p class="hero-sub">A futuristic, stroke-based monospace font crafted for developers. Clean geometry. Crisp at any size.</p>
+  <div class="hero-cta">
+    <a href="dist/CorbitMono.ttf" download class="btn btn-primary">↓ Download TTF</a>
+    <a href="#preview" class="btn btn-secondary">Preview Font</a>
+    <a href="https://github.com/CorbitTechnologies/corbiit-font" target="_blank" class="btn btn-secondary">View Source</a>
+  </div>
+</div>
+
+<!-- Preview -->
+<section id="preview">
+  <p class="section-label">// 01 — preview</p>
+  <h2>See It In Action</h2>
+
+  <div class="preview-box">
+    <p class="preview-label">Uppercase</p>
+    <p class="preview-text">ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
+  </div>
+  <div class="preview-box">
+    <p class="preview-label">Lowercase</p>
+    <p class="preview-text">abcdefghijklmnopqrstuvwxyz</p>
+  </div>
+  <div class="preview-box">
+    <p class="preview-label">Numbers &amp; Symbols</p>
+    <p class="preview-text">0123456789 !@#$%^&amp;*(){}[]|</p>
+  </div>
+
+  <!-- Interactive -->
+  <p class="section-label" style="margin-top:3rem;">// Type something</p>
+  <div class="input-wrap">
+    <div class="input-header">
+      <span>LIVE PREVIEW</span>
+      <select id="font-size-ctrl" onchange="setSize(this.value)">
+        <option value="1rem">12px</option>
+        <option value="1.5rem" selected>18px</option>
+        <option value="2rem">24px</option>
+        <option value="3rem">36px</option>
+        <option value="4.5rem">54px</option>
+      </select>
+    </div>
+    <textarea id="live-input" rows="3" spellcheck="false"
+      placeholder="Type here to preview Corbit Mono...">const greet = (name) => `Hello, ${name}!`;</textarea>
+  </div>
+</section>
+
+<!-- Glyphs -->
+<section id="glyphs">
+  <p class="section-label">// 02 — character map</p>
+  <h2>Complete Glyph Set</h2>
+  <div class="chars-grid" id="glyph-grid">
+    <!-- Populated by JS -->
+  </div>
+</section>
+
+<!-- Code -->
+<section id="code">
+  <p class="section-label">// 03 — code samples</p>
+  <h2>Built for Code</h2>
+
+  <div class="code-sample">
+    <div class="code-bar">
+      <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+      <span style="margin-left:0.5rem;">main.js</span>
+    </div>
+    <pre><span class="cm">// Corbit Mono — clean and readable at any size</span>
+<span class="kw">const</span> <span class="fn">fibonacci</span> = (<span class="acc">n</span>) =&gt; {
+  <span class="kw">if</span> (n &lt;= <span class="num">1</span>) <span class="kw">return</span> n;
+  <span class="kw">return</span> <span class="fn">fibonacci</span>(n - <span class="num">1</span>) + <span class="fn">fibonacci</span>(n - <span class="num">2</span>);
+};
+
+<span class="kw">const</span> results = [<span class="num">0</span>, <span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>, <span class="num">7</span>, <span class="num">8</span>]
+  .map(<span class="fn">fibonacci</span>);
+
+console.log(<span class="str">`Sequence: <span class="acc">${results.join(', ')}</span>`</span>);</pre>
+  </div>
+
+  <div class="code-sample">
+    <div class="code-bar">
+      <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+      <span style="margin-left:0.5rem;">server.ts</span>
+    </div>
+    <pre><span class="kw">interface</span> <span class="acc">Response</span>&lt;T&gt; {
+  status: <span class="kw">number</span>;
+  data: T;
+  error?: <span class="kw">string</span>;
+}
+
+<span class="kw">async function</span> <span class="fn">fetchUser</span>(id: <span class="kw">string</span>): Promise&lt;<span class="acc">Response</span>&lt;<span class="acc">User</span>&gt;&gt; {
+  <span class="kw">const</span> res = <span class="kw">await</span> fetch(<span class="str">`/api/users/<span class="acc">${id}</span>`</span>);
+  <span class="kw">if</span> (!res.ok) <span class="kw">throw new</span> Error(<span class="str">'Not found'</span>);
+  <span class="kw">return</span> { status: <span class="num">200</span>, data: <span class="kw">await</span> res.json() };
+}</pre>
+  </div>
+</section>
+
+<!-- Features -->
+<section>
+  <p class="section-label">// 04 — features</p>
+  <h2>Why Corbit Mono?</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">◈</div>
+      <h3>Stroke-Based Design</h3>
+      <p>Every glyph built from geometric strokes — precise, legible, and unmistakably technical.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">◉</div>
+      <h3>True Monospace</h3>
+      <p>All characters share a fixed 600-unit advance width for perfect code alignment.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">◎</div>
+      <h3>Open Source</h3>
+      <p>Released under SIL Open Font License 1.1. Free to use, modify, and distribute.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">◍</div>
+      <h3>Developer Symbols</h3>
+      <p>Includes all essential programming punctuation and special characters.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">◌</div>
+      <h3>Built with JS</h3>
+      <p>100% generated from SVG path data using opentype.js — fully reproducible build.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">◆</div>
+      <h3>No Dependencies</h3>
+      <p>This demo page is self-contained — no frameworks, no CDN, no trackers.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Download -->
+<section id="download">
+  <p class="section-label">// 05 — download</p>
+  <h2>Get the Font</h2>
+  <div class="download-grid">
+    <div class="download-card">
+      <div class="dl-ext">.ttf</div>
+      <p class="dl-desc">TrueType Font. Works everywhere — desktop apps, web via @font-face, IDEs.</p>
+      <a href="dist/CorbitMono.ttf" download class="btn btn-primary">↓ Download TTF</a>
+    </div>
+    <div class="download-card">
+      <div class="dl-ext">Source</div>
+      <p class="dl-desc">Build it yourself. Full SVG glyph data, opentype.js pipeline, MIT build scripts.</p>
+      <a href="https://github.com/CorbitTechnologies/corbiit-font" target="_blank" class="btn btn-secondary">View on GitHub</a>
+    </div>
+  </div>
+
+  <div style="margin-top:3rem;">
+    <p class="section-label">// @font-face usage</p>
+    <div class="code-sample">
+      <div class="code-bar">
+        <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+        <span style="margin-left:0.5rem;">styles.css</span>
+      </div>
+      <pre><span class="acc">@font-face</span> {
+  font-family: <span class="str">'Corbit Mono'</span>;
+  src: url(<span class="str">'CorbitMono.ttf'</span>) <span class="fn">format</span>(<span class="str">'truetype'</span>);
+  font-weight: <span class="num">normal</span>;
+  font-style: <span class="num">normal</span>;
+}
+
+<span class="acc">body</span> {
+  font-family: <span class="str">'Corbit Mono'</span>, monospace;
+}</pre>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>
+    Corbit Mono is released under the
+    <a href="LICENSE" target="_blank">SIL Open Font License 1.1</a>.
+    Built by <a href="https://github.com/CorbitTechnologies" target="_blank">Corbit Technologies</a>.
+  </p>
+</footer>
+
+<script>
+  // Font size control
+  function setSize(v) {
+    document.getElementById('live-input').style.fontSize = v;
+  }
+
+  // Live preview sync (just styles the textarea)
+  // The textarea already uses Corbit Mono via CSS
+
+  // ── Glyph grid ──
+  const GLYPHS = [
+    // Uppercase
+    { label:'A', d:"M 500 150 L 150 800 M 500 150 L 850 800 M 250 570 L 750 570" },
+    { label:'B', d:"M 200 150 L 200 800 M 200 150 L 550 150 Q 750 150 750 350 Q 750 500 200 500 M 200 500 L 600 500 Q 800 500 800 650 Q 800 800 550 800 L 200 800" },
+    { label:'C', d:"M 750 250 Q 650 150 500 150 Q 200 150 200 475 Q 200 800 500 800 Q 650 800 750 700" },
+    { label:'D', d:"M 200 150 L 200 800 L 450 800 Q 800 800 800 475 Q 800 150 450 150 Z" },
+    { label:'E', d:"M 750 150 L 200 150 L 200 800 L 750 800 M 200 475 L 650 475" },
+    { label:'F', d:"M 750 150 L 200 150 L 200 800 M 200 475 L 650 475" },
+    { label:'G', d:"M 750 250 Q 650 150 500 150 Q 200 150 200 475 Q 200 800 500 800 Q 700 800 800 700 L 800 475 L 550 475" },
+    { label:'H', d:"M 200 150 L 200 800 M 800 150 L 800 800 M 200 475 L 800 475" },
+    { label:'I', d:"M 350 150 L 650 150 M 500 150 L 500 800 M 350 800 L 650 800" },
+    { label:'J', d:"M 300 150 L 700 150 M 550 150 L 550 650 Q 550 800 400 800 Q 200 800 200 650" },
+    { label:'K', d:"M 200 150 L 200 800 M 800 150 L 200 475 M 350 570 L 800 800" },
+    { label:'L', d:"M 200 150 L 200 800 L 800 800" },
+    { label:'M', d:"M 150 800 L 150 150 L 500 570 L 850 150 L 850 800" },
+    { label:'N', d:"M 200 800 L 200 150 L 800 800 L 800 150" },
+    { label:'O', d:"M 500 150 Q 800 150 800 475 Q 800 800 500 800 Q 200 800 200 475 Q 200 150 500 150 Z" },
+    { label:'P', d:"M 200 150 L 200 800 M 200 150 L 550 150 Q 800 150 800 325 Q 800 500 550 500 L 200 500" },
+    { label:'Q', d:"M 500 150 Q 800 150 800 475 Q 800 800 500 800 Q 200 800 200 475 Q 200 150 500 150 Z M 600 680 L 850 900" },
+    { label:'R', d:"M 200 150 L 200 800 M 200 150 L 550 150 Q 800 150 800 325 Q 800 500 550 500 L 200 500 M 450 500 L 800 800" },
+    { label:'S', d:"M 750 250 Q 650 150 500 150 Q 200 150 200 350 Q 200 500 500 500 Q 800 500 800 650 Q 800 800 500 800 Q 350 800 200 700" },
+    { label:'T', d:"M 150 150 L 850 150 M 500 150 L 500 800" },
+    { label:'U', d:"M 200 150 L 200 650 Q 200 800 500 800 Q 800 800 800 650 L 800 150" },
+    { label:'V', d:"M 150 150 L 500 800 L 850 150" },
+    { label:'W', d:"M 150 150 L 300 800 L 500 500 L 700 800 L 850 150" },
+    { label:'X', d:"M 200 150 L 800 800 M 800 150 L 200 800" },
+    { label:'Y', d:"M 150 150 L 500 500 M 850 150 L 500 500 L 500 800" },
+    { label:'Z', d:"M 200 150 L 800 150 L 200 800 L 800 800" },
+    // Lowercase
+    { label:'a', d:"M 750 430 Q 700 350 550 350 Q 300 350 300 580 Q 300 800 550 800 Q 700 800 750 720 L 750 350 L 750 800" },
+    { label:'b', d:"M 200 150 L 200 800 M 200 600 Q 200 800 450 800 Q 750 800 750 580 Q 750 350 450 350 Q 200 350 200 580" },
+    { label:'c', d:"M 700 450 Q 620 350 500 350 Q 250 350 250 580 Q 250 800 500 800 Q 620 800 700 700" },
+    { label:'d', d:"M 800 150 L 800 800 M 800 600 Q 800 800 550 800 Q 250 800 250 580 Q 250 350 550 350 Q 800 350 800 580" },
+    { label:'e', d:"M 250 550 L 750 550 Q 750 350 500 350 Q 250 350 250 580 Q 250 800 500 800 Q 650 800 750 700" },
+    { label:'f', d:"M 650 200 Q 550 150 450 150 Q 300 150 300 300 L 300 800 M 150 450 L 600 450" },
+    { label:'g', d:"M 750 350 L 750 900 Q 750 980 500 980 Q 300 980 250 880 M 750 430 Q 700 350 550 350 Q 250 350 250 580 Q 250 800 550 800 Q 750 800 750 580" },
+    { label:'h', d:"M 200 150 L 200 800 M 200 520 Q 200 350 450 350 Q 750 350 750 520 L 750 800" },
+    { label:'i', d:"M 500 350 L 500 800 M 500 200 L 500 250" },
+    { label:'j', d:"M 550 350 L 550 900 Q 550 980 400 980 Q 300 980 250 930 M 550 200 L 550 250" },
+    { label:'k', d:"M 200 150 L 200 800 M 700 350 L 200 600 M 400 540 L 750 800" },
+    { label:'l', d:"M 500 150 L 500 750 Q 500 800 600 800" },
+    { label:'m', d:"M 150 350 L 150 800 M 150 490 Q 150 350 350 350 Q 500 350 500 490 L 500 800 M 500 490 Q 500 350 700 350 Q 850 350 850 490 L 850 800" },
+    { label:'n', d:"M 200 350 L 200 800 M 200 490 Q 200 350 500 350 Q 800 350 800 490 L 800 800" },
+    { label:'o', d:"M 500 350 Q 800 350 800 580 Q 800 800 500 800 Q 200 800 200 580 Q 200 350 500 350 Z" },
+    { label:'p', d:"M 200 350 L 200 980 M 200 580 Q 200 350 500 350 Q 800 350 800 580 Q 800 800 500 800 Q 200 800 200 580" },
+    { label:'q', d:"M 800 350 L 800 980 M 800 580 Q 800 350 500 350 Q 200 350 200 580 Q 200 800 500 800 Q 800 800 800 580" },
+    { label:'r', d:"M 200 350 L 200 800 M 200 490 Q 200 350 450 350 Q 600 350 650 420" },
+    { label:'s', d:"M 700 430 Q 640 350 500 350 Q 250 350 250 500 Q 250 600 500 600 Q 750 600 750 700 Q 750 800 500 800 Q 350 800 250 730" },
+    { label:'t', d:"M 500 150 L 500 750 Q 500 800 600 800 M 300 450 L 700 450" },
+    { label:'u', d:"M 200 350 L 200 680 Q 200 800 500 800 Q 800 800 800 680 L 800 350" },
+    { label:'v', d:"M 200 350 L 500 800 L 800 350" },
+    { label:'w', d:"M 150 350 L 320 800 L 500 550 L 680 800 L 850 350" },
+    { label:'x', d:"M 200 350 L 800 800 M 800 350 L 200 800" },
+    { label:'y', d:"M 200 350 L 500 720 M 800 350 L 500 720 L 350 950" },
+    { label:'z', d:"M 200 350 L 800 350 L 200 800 L 800 800" },
+    // Numbers
+    { label:'0', d:"M 500 150 Q 800 150 800 475 Q 800 800 500 800 Q 200 800 200 475 Q 200 150 500 150 Z M 300 720 L 700 220" },
+    { label:'1', d:"M 300 300 L 500 150 L 500 800 M 250 800 L 750 800" },
+    { label:'2', d:"M 200 300 Q 200 150 500 150 Q 800 150 800 350 Q 800 500 200 800 L 800 800" },
+    { label:'3', d:"M 200 200 Q 300 150 500 150 Q 800 150 800 350 Q 800 500 500 500 M 500 500 Q 800 500 800 650 Q 800 800 500 800 Q 300 800 200 750" },
+    { label:'4', d:"M 700 800 L 700 150 L 150 600 L 850 600" },
+    { label:'5', d:"M 750 150 L 250 150 L 200 500 Q 350 400 500 400 Q 800 400 800 600 Q 800 800 500 800 Q 300 800 200 700" },
+    { label:'6', d:"M 700 250 Q 600 150 500 150 Q 200 150 200 500 L 200 650 Q 200 800 500 800 Q 800 800 800 650 Q 800 500 500 500 Q 200 500 200 650" },
+    { label:'7', d:"M 200 150 L 800 150 L 400 800" },
+    { label:'8', d:"M 500 475 Q 200 475 200 325 Q 200 150 500 150 Q 800 150 800 325 Q 800 475 500 475 Q 200 475 200 650 Q 200 800 500 800 Q 800 800 800 650 Q 800 475 500 475" },
+    { label:'9', d:"M 800 350 Q 800 150 500 150 Q 200 150 200 350 Q 200 500 500 500 Q 800 500 800 350 L 800 650 Q 800 800 500 800 Q 350 800 250 720" },
+    // Common symbols
+    { label:'!',  d:"M 500 150 L 500 620 M 500 750 L 500 800" },
+    { label:'"',  d:"M 350 150 L 350 300 M 650 150 L 650 300" },
+    { label:'#',  d:"M 300 150 L 200 850 M 700 150 L 600 850 M 150 400 L 850 400 M 100 600 L 800 600" },
+    { label:'$',  d:"M 500 100 L 500 900 M 750 250 Q 650 150 500 150 Q 200 150 200 350 Q 200 500 500 500 Q 800 500 800 650 Q 800 800 500 800 Q 350 800 200 700" },
+    { label:'%',  d:"M 800 150 L 200 800 M 300 150 Q 200 150 200 250 Q 200 350 300 350 Q 400 350 400 250 Q 400 150 300 150 M 700 650 Q 600 650 600 750 Q 600 850 700 850 Q 800 850 800 750 Q 800 650 700 650" },
+    { label:'&',  d:"M 750 650 Q 750 800 450 800 Q 150 800 150 550 Q 150 400 400 300 L 250 150 Q 450 50 600 200 Q 700 300 600 400 L 150 800" },
+    { label:'(',  d:"M 600 100 Q 300 400 300 500 Q 300 600 600 900" },
+    { label:')',  d:"M 400 100 Q 700 400 700 500 Q 700 600 400 900" },
+    { label:'*',  d:"M 500 200 L 500 600 M 200 350 L 800 450 M 800 350 L 200 450" },
+    { label:'+',  d:"M 500 200 L 500 800 M 200 500 L 800 500" },
+    { label:',',  d:"M 500 700 Q 450 800 400 850" },
+    { label:'-',  d:"M 200 500 L 800 500" },
+    { label:'.',  d:"M 500 750 L 500 800" },
+    { label:'/',  d:"M 700 150 L 300 850" },
+    { label:':',  d:"M 500 350 L 500 400 M 500 600 L 500 650" },
+    { label:';',  d:"M 500 350 L 500 400 M 500 600 Q 450 700 400 750" },
+    { label:'<',  d:"M 750 200 L 250 500 L 750 800" },
+    { label:'=',  d:"M 200 400 L 800 400 M 200 600 L 800 600" },
+    { label:'>',  d:"M 250 200 L 750 500 L 250 800" },
+    { label:'?',  d:"M 200 300 Q 200 150 500 150 Q 800 150 800 350 Q 800 500 500 600 L 500 680 M 500 750 L 500 800" },
+    { label:'@',  d:"M 650 475 Q 650 350 500 350 Q 300 350 300 500 Q 300 650 500 650 Q 650 650 650 500 L 650 350 Q 650 150 500 150 Q 200 150 200 500 Q 200 800 500 800 Q 700 800 800 650" },
+    { label:'[',  d:"M 650 150 L 350 150 L 350 800 L 650 800" },
+    { label:'\\', d:"M 300 150 L 700 850" },
+    { label:']',  d:"M 350 150 L 650 150 L 650 800 L 350 800" },
+    { label:'^',  d:"M 250 550 L 500 200 L 750 550" },
+    { label:'_',  d:"M 150 850 L 850 850" },
+    { label:'{',  d:"M 650 150 L 500 150 Q 350 150 350 300 L 350 450 Q 350 500 200 500 Q 350 500 350 550 L 350 700 Q 350 850 500 850 L 650 850" },
+    { label:'|',  d:"M 500 150 L 500 850" },
+    { label:'}',  d:"M 350 150 L 500 150 Q 650 150 650 300 L 650 450 Q 650 500 800 500 Q 650 500 650 550 L 650 700 Q 650 850 500 850 L 350 850" },
+    { label:'~',  d:"M 200 500 Q 300 350 500 500 Q 700 650 800 500" },
+  ];
+
+  const grid = document.getElementById('glyph-grid');
+
+  GLYPHS.forEach(({ label, d }) => {
+    const cell = document.createElement('div');
+    cell.className = 'char-cell';
+    cell.title = label;
+
+    const pathEl = d ? `<path d="${d}" />` : '';
+    cell.innerHTML = `
+      <svg viewBox="0 0 1000 1000" fill="none" stroke="currentColor" stroke-width="80" stroke-linecap="round" stroke-linejoin="round">
+        ${pathEl}
+      </svg>
+      <span class="char-label">${label === '<' ? '&lt;' : label === '>' ? '&gt;' : label === '&' ? '&amp;' : label === '"' ? '&quot;' : label === '\\' ? '\\' : label}</span>
+    `;
+    grid.appendChild(cell);
+  });
+</script>
+</body>
+</html>
