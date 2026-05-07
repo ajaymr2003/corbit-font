@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Corbit Mono - A futuristic open-source monospace developer font",
   "scripts": {
-    "generate": "node scripts/generate-glyphs.js",
-    "build": "node scripts/build-font.js",
+    "generate": "node src/scripts/generate-glyphs.js",
+    "build": "node src/scripts/build-font.js",
     "all": "npm run generate && npm run build"
   },
   "keywords": ["font", "monospace", "developer", "open-source", "corbit"],

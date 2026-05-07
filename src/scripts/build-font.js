@@ -235,7 +235,7 @@ const GLYPH_DEFS = [
 ];
 
 function buildFont() {
-  fs.mkdirSync('dist', { recursive: true });
+  fs.mkdirSync('assets', { recursive: true });
 
   console.log(`Building Corbit Mono with ${GLYPH_DEFS.length} glyphs...`);
 
@@ -281,7 +281,7 @@ function buildFont() {
     glyphs,
   });
 
-  const outPath = path.join('dist', 'CorbitMono.ttf');
+  const outPath = path.join('assets', 'CorbitMono.ttf');
 
   // opentype.js: use toArrayBuffer() for Node.js file writing
   const arrayBuffer = font.toArrayBuffer();

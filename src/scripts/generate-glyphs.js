@@ -3,11 +3,11 @@ const fse = require('fs-extra');
 const path = require('path');
 
 const DIRS = [
-  'glyphs/uppercase',
-  'glyphs/lowercase',
-  'glyphs/numbers',
-  'glyphs/symbols',
-  'glyphs/ligatures',
+  'src/glyphs/uppercase',
+  'src/glyphs/lowercase',
+  'src/glyphs/numbers',
+  'src/glyphs/symbols',
+  'src/glyphs/ligatures',
 ];
 
 const GLYPH_DATA = {
@@ -143,7 +143,7 @@ async function main() {
   // Uppercase
   for (const [char, d] of Object.entries(GLYPH_DATA.uppercase)) {
     const svg = makeSVG(d);
-    await fse.writeFile(path.join('glyphs/uppercase', `${char}.svg`), svg, 'utf8');
+    await fse.writeFile(path.join('src/glyphs/uppercase', `${char}.svg`), svg, 'utf8');
     total++;
   }
   console.log(`✓ Generated ${Object.keys(GLYPH_DATA.uppercase).length} uppercase glyphs`);
@@ -151,7 +151,7 @@ async function main() {
   // Lowercase
   for (const [char, d] of Object.entries(GLYPH_DATA.lowercase)) {
     const svg = makeSVG(d);
-    await fse.writeFile(path.join('glyphs/lowercase', `${char}.svg`), svg, 'utf8');
+    await fse.writeFile(path.join('src/glyphs/lowercase', `${char}.svg`), svg, 'utf8');
     total++;
   }
   console.log(`✓ Generated ${Object.keys(GLYPH_DATA.lowercase).length} lowercase glyphs`);
@@ -159,7 +159,7 @@ async function main() {
   // Numbers
   for (const [char, d] of Object.entries(GLYPH_DATA.numbers)) {
     const svg = makeSVG(d);
-    await fse.writeFile(path.join('glyphs/numbers', `${char}.svg`), svg, 'utf8');
+    await fse.writeFile(path.join('src/glyphs/numbers', `${char}.svg`), svg, 'utf8');
     total++;
   }
   console.log(`✓ Generated ${Object.keys(GLYPH_DATA.numbers).length} number glyphs`);
@@ -167,7 +167,7 @@ async function main() {
   // Symbols
   for (const [name, d] of Object.entries(GLYPH_DATA.symbols)) {
     const svg = makeSVG(d);
-    await fse.writeFile(path.join('glyphs/symbols', `${name}.svg`), svg, 'utf8');
+    await fse.writeFile(path.join('src/glyphs/symbols', `${name}.svg`), svg, 'utf8');
     total++;
   }
   console.log(`✓ Generated ${Object.keys(GLYPH_DATA.symbols).length} symbol glyphs`);
@@ -175,12 +175,12 @@ async function main() {
   // Ligatures
   for (const [name, d] of Object.entries(GLYPH_DATA.ligatures)) {
     const svg = makeSVG(d);
-    await fse.writeFile(path.join('glyphs/ligatures', `${name}.svg`), svg, 'utf8');
+    await fse.writeFile(path.join('src/glyphs/ligatures', `${name}.svg`), svg, 'utf8');
     total++;
   }
   console.log(`✓ Generated ${Object.keys(GLYPH_DATA.ligatures).length} ligature glyphs`);
 
-  console.log(`\n✅ Done! Generated ${total} SVG files in glyphs/`);
+  console.log(`\n✅ Done! Generated ${total} SVG files in src/glyphs/`);
 }
 
 main().catch(err => { console.error(err); process.exit(1); });
